@@ -30,6 +30,16 @@ const user = (state = initialState, { type, payload }) => {
         signedIn: false
       }
     }
+    case 'USER_SIGN_UP_FULFILLED':{
+      const { id, name, email } = payload;
+      return {
+        ...state,
+        id,
+        name,
+        email,
+        token: payload.authentication_token
+      }
+    }
     default:
       break
   }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'react-router-redux';
 import Header from './components/layouts/Header';
 import HomePage from './components/pages/Home';
 import LoginPage from './components/pages/Login';
+import RegisterPage from './components/pages/Register';
 import { history } from './routerConfig';
 
 const signedInRoutes = [
@@ -12,7 +13,9 @@ const signedInRoutes = [
 ]
 
 const signedOutRoutes = [
-  <Route path='/' exact component={LoginPage} />
+  <Route path='/login' exact component={LoginPage} />,
+  <Route path='/register' exact component={RegisterPage} />,
+  <Route path='/' render={(props) => <Redirect to={{ pathname: '/login'}}/>} />
 ]
 
 const App = ({ user }) =>(

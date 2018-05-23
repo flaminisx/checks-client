@@ -33,5 +33,6 @@ function saveToLocalStorage(data){
 export default [
 	takeEvery("INIT", checkLogin),
 	takeEvery("USER_LOGIN_FULFILLED", userSignedIn),
+	takeEvery("USER_SIGN_UP_FULFILLED", userSignedIn),
 	takeEvery("USER_SIGN_OUT", userSignedOut)
 ];

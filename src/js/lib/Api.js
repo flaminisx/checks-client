@@ -26,6 +26,19 @@ export default {
     this.token = '';
   },
 
+  signUp(data){
+    return fetch('http://checks-api.botunit.me/sign_up', {
+      method: "POST",
+      headers:{
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user: data
+      })
+    }).then(res => res.json());
+  },
+
   fetchProducts(){
     return fetch('http://checks-api.botunit.me/products', {
       headers: {

@@ -6,6 +6,7 @@ import { fetchProducts as fetchProductsAction } from '../actions/productActions'
 
 function* userSignedIn(action){
 	yield put(fetchProductsAction());
+	yield put(push('/'));
 }
 
 export default [

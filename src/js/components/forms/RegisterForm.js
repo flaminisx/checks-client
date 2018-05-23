@@ -23,11 +23,21 @@ const renderTextField = ({
     {...custom}
   />
 )
-const LoginForm = (props) => (
+const RegisterForm = (props) => (
   <form onSubmit={props.handleSubmit} className="userform">
     <Paper className="userform__container" elevation={4}>
-      <Typography variant="display2" gutterBottom align="center">Sing In</Typography>
+      <Typography variant="display2" gutterBottom align="center">Registration</Typography>
       <div className="userform__fields">
+        <Field
+          name="name"
+          component={renderTextField}
+          label="Name"
+          className="userform__field"
+          style={style.field}
+          props={{
+            fullWidth: true,
+            autoFocus: true
+          }}/>
         <Field
           name="email"
           component={renderTextField}
@@ -36,13 +46,22 @@ const LoginForm = (props) => (
           style={style.field}
           props={{
             inputProps: {type: 'email'},
-            fullWidth: true,
-            autoFocus: true
+            fullWidth: true
           }}/>
         <Field
           name="password"
           component={renderTextField}
           label="Password"
+          className="userform__field"
+          style={style.field}
+          props={{
+            inputProps: {type: 'password'},
+            fullWidth: true
+          }}/>
+        <Field
+          name="password_confirmation"
+          component={renderTextField}
+          label="Repeat password"
           className="userform__field"
           style={style.field}
           props={{
@@ -59,8 +78,8 @@ const LoginForm = (props) => (
       </div>
       <div className="userform__link">
         <Typography gutterBottom align="center">
-          <span>No account yet? </span>
-          <Link to='/register'>Register now!</Link>
+          <span>Have an account? </span>
+          <Link to='/login'>Sing in now!</Link>
         </Typography>
       </div>
     </Paper>
@@ -68,5 +87,5 @@ const LoginForm = (props) => (
 )
 
 export default reduxForm({
-  form: 'login'
-})(LoginForm);
+  form: 'register'
+})(RegisterForm);
