@@ -1,15 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import LoginForm from '../forms/LoginForm';
+import { signIn as signInAction } from '../../actions/userActions';
 
 
-const submit = (data) => {
-  console.log(data);
+const LoginPage = (props) => {
+  const submit = (data) => {
+    props.signIn(data.email, data.password);
+  }
+  return (
+    <div className="login">
+      <LoginForm onSubmit={submit}/>
+    </div>
+  )
 }
 
-const LoginPage = (props) => (
-  <div className="login">
-    <LoginForm onSubmit={submit}/>
-  </div>
-)
-
-export default LoginPage;
+export default connect(null, {
+  signIn: signInAction
+})(LoginPage);
