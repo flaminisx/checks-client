@@ -18,13 +18,20 @@ function* userSignedIn(action){
 	yield put(signedInAction());
 }
 
+function* userSignedOut(){
+	API.singOut();
+	saveToLocalStorage({ name: '', email: '', authentication_token: '' });
+}
+
 function saveToLocalStorage(data){
 	localStorage.setItem('name', data.name);
 	localStorage.setItem('email', data.email);
 	localStorage.setItem('token', data.authentication_token);
 }
 
+
 export default [
 	takeEvery("INIT", checkLogin),
-	takeEvery("USER_LOGIN_FULFILLED", userSignedIn)
+	takeEvery("USER_LOGIN_FULFILLED", userSignedIn),
+	takeEvery("USER_SIGN_OUT", userSignedOut)
 ];

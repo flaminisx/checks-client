@@ -21,6 +21,10 @@ export default {
     this.email = email;
     this.token = token;
   },
+  singOut(){
+    this.email = '';
+    this.token = '';
+  },
 
   fetchProducts(){
     return fetch('http://checks-api.botunit.me/products', {
@@ -30,4 +34,5 @@ export default {
       }
     }).then(res => res.json());
   }
+
 }

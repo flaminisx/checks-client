@@ -22,6 +22,14 @@ const user = (state = initialState, { type, payload }) => {
     case 'USER_SIGNED_ID':{
       return { ...state, signedIn: true}
     }
+    case 'USER_SIGN_OUT':{
+      return {
+        name: '',
+        email: '',
+        token: '',
+        signedIn: false
+      }
+    }
     default:
       break
   }
