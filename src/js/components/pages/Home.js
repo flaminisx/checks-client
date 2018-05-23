@@ -21,10 +21,9 @@ class HomePage extends Component{
       day: 'numeric'
     });
   }
-  formatWarranty(purchased, warranty){
-    const num = this.countWarranty(purchased, warranty);
-    if(num > 0) return 'overdue';
-    const date = new Date(-num);
+  formatWarranty(time){
+    if(time > 0) return 'overdue';
+    const date = new Date(-time);
     const y = date.getFullYear() - 1970 > 0 ? `${date.getFullYear() - 1970} years` : '';
     const m = date.getMonth() > 0 ? `${date.getMonth()} month` : '';
     const d = date.getDate();
@@ -32,6 +31,21 @@ class HomePage extends Component{
   }
   countWarranty(purchased, warranty){
     return +Date.now() - (+new Date(purchased) + (+new Date(warranty * 1000)));
+  }
+
+  productRow(product){
+    const warranty = this.countWarranty(product.purchased_at, product.warranty_time);
+    let cls = "products__row";
+    if(warranty > 0) cls = `${cls} products__row_late`;
+    else if(warranty > -2592000) cls = `${cls} products__row_late`;
+    else cls = `${cls} products__row_ok`;
+    return (
+      <TableRow key={ product.id } className={cls}>
+        <TableCell>{ product.title }</TableCell>
+        <TableCell>{ this.formatDate(product.purchased_at) }</TableCell>
+        <TableCell>{ this.formatWarranty(warranty) }</TableCell>
+      </TableRow>
+    );
   }
 
   render(){
@@ -50,17 +64,7 @@ class HomePage extends Component{
                  </TableRow>
                </TableHead>
                <TableBody>
-                 { products.map(product => {
-                   return (
-                     <TableRow key={product.id}>
-                       <TableCell>
-                         {product.title}
-                       </TableCell>
-                       <TableCell>{this.formatDate(product.purchased_at)}</TableCell>
-                       <TableCell numeric>{ this.formatWarranty(product.purchased_at, product.warranty_time) }</TableCell>
-                     </TableRow>
-                   );
-                 })}
+                 { products.map(product => this.productRow(product)) }
                </TableBody>
              </Table>
             </Paper>
