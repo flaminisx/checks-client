@@ -46,6 +46,21 @@ export default {
         'X-User-Token': this.token
       }
     }).then(res => res.json());
+  },
+
+  createProduct(data){
+    return fetch('http://checks-api.botunit.me/products', {
+      method: "POST",
+      headers: {
+        'X-User-Email': this.email,
+        'X-User-Token': this.token,
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        product: data
+      })
+    }).then(res => res.json());
   }
 
 }

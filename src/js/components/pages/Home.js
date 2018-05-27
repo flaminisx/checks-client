@@ -7,11 +7,14 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-
+import Button from '@material-ui/core/Button';
+import ProductForm from '../forms/ProductForm';
+import { createProduct as createProductAction } from '../../actions/productActions';
 
 class HomePage extends Component{
   constructor(props){
     super(props);
+    this.state={ formOpen: false };
   }
 
   formatDate(str){
@@ -48,10 +51,36 @@ class HomePage extends Component{
     );
   }
 
+  submit(data){
+    this.props.createProduct(data);
+    this.closeDialog();
+  }
+
+  closeDialog(){
+    this.setState({ formOpen: false });
+  }
+  openDialog(){
+    this.setState({ formOpen: true });
+  }
+
   render(){
     const { products } = this.props;
     return(
       <div className="home">
+        <div className="home__btnwrapper">
+          <Button
+            variant="raised"
+            color="primary"
+            onClick={this.openDialog.bind(this)}
+            className="home__button"
+            style={{margin: '30px auto auto'}}>
+              Add new
+          </Button>
+          <ProductForm
+            open={this.state.formOpen}
+            onSubmit={this.submit.bind(this)}
+            close={this.closeDialog.bind(this)}/>
+        </div>
         <Grid container spacing={16} justify="center">
           <Grid item md={6}>
             <Paper className="home__wrapper" elevation={4} xs={12} lg={8} xl={6}>
@@ -77,8 +106,6 @@ class HomePage extends Component{
 
 export default connect(({products}) => ({
   products
-}))(HomePage);
-
-// <List component="nav">
-//   { products.map((product) => <ListItem><ListItemText>{ product.title }</ListItemText></ListItem>) }
-// </List>
+}), {
+  createProduct: createProductAction
+})(HomePage);

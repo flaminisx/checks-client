@@ -1,4 +1,3 @@
-
 const initialState = {
   name: localStorage.getItem('name'),
   email: localStorage.getItem('email'),
