@@ -1,8 +1,10 @@
+import config from '../config';
+
 export default {
   token: '',
   email: '',
   authenticate(email, password){
-    return fetch('http://checks-api.botunit.me/sign_in', {
+    return fetch(`${config.API_URL}/sign_in`, {
       method: "POST",
       headers:{
         'Accept': 'application/json',
@@ -27,7 +29,7 @@ export default {
   },
 
   signUp(data){
-    return fetch('http://checks-api.botunit.me/sign_up', {
+    return fetch(`${config.API_URL}/sign_up`, {
       method: "POST",
       headers:{
         'Accept': 'application/json',
@@ -40,7 +42,7 @@ export default {
   },
 
   fetchProducts(){
-    return fetch('http://checks-api.botunit.me/products', {
+    return fetch(`${config.API_URL}/products`, {
       headers: {
         'X-User-Email': this.email,
         'X-User-Token': this.token
@@ -49,7 +51,7 @@ export default {
   },
 
   createProduct(data){
-    return fetch('http://checks-api.botunit.me/products', {
+    return fetch(`${config.API_URL}/products`, {
       method: "POST",
       headers: {
         'X-User-Email': this.email,
